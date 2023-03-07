@@ -1,10 +1,14 @@
 <?php
-    $usuario = $_GET['name'];
-    $senha = $_GET['password'];
+    $usuario = $_GET['name'] ?? false;
+    $senha = $_GET['password'] ?? false;
     
     if ($usuario == 'Luiz' &&
         $senha == 456) {
-        echo 'Logi Ok';
+            session_start();
+            $_SESSION['usuario'] = $usuario;
+            header('location:boasvindas.php');
+            die;
         }else{
-        echo 'Usuário ou senha incorretos';
+            header('location:form.php?erro=1');
+            die;
     }
