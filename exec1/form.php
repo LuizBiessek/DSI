@@ -8,11 +8,10 @@
         case 2:
             echo 'Você não está autenticado';
             break;
+        case 3:
+            echo 'Você não está mais numa sessão';
+            break;
     }
-
-    // if(isset($_GET['erro'])) {
-        
-    // }
 ?>
 
 <form action="form_receber.php">
