@@ -3,12 +3,15 @@
 
     echo 'Boas Vindas';
 
-    // $senha_cripto = password_hash(123, PASSWORD_BCRYPT, 
-    // ['cost' => 12]);
-
-    // echo $senha_cripto;
 ?>
 
 <p>
+    <?php
+        if($_SESSION['admin']) {
+    ?>
+    <a href="usuarios.php">Usuários</a>
+    <?php
+        }
+    ?>
     <a href="logout.php">Sair</a>
 </p>

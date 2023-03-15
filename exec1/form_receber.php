@@ -1,13 +1,26 @@
 <?php
+    require('pdo.inc.php');
 
-    $senha_cripto = '$2y$12$xSCMZzffX9RLgMNSgYcKx.wSMF349FKSACHOgHDRFK.hcQ3EloD7K';
     $usuario = $_GET['name'] ?? false;
     $senha = $_GET['password'] ?? false;
-    
-    if ($usuario == 'Luiz' &&
-        password_verify($senha, $senha_cripto)) {
+
+    //Prepare
+    $sql = $pdo->prepare('SELECT * FROM usuarios WHERE userName = ? AND active = 1');
+
+    //Replace the placeholder
+    $sql->bindParam(1, $usuario, PDO::PARAM_STR);
+
+    //Executa o SQL
+    $sql->execute();
+
+    //Busca os dados no banco
+    $dados = $sql->fetch(PDO::FETCH_ASSOC);
+
+    if ( $sql->rowCount() == 1 &&
+        password_verify($senha, $dados['password'])) {
             session_start();
             $_SESSION['usuario'] = $usuario;
+            $_SESSION['admin'] = $dados['admin'];
             header('location:boasvindas.php');
             die;
         }else{
